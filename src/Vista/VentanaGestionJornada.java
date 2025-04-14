@@ -67,10 +67,15 @@ public class VentanaGestionJornada extends JFrame {
                         JOptionPane.showMessageDialog(contentPane, "ERROR. Debes de seleccionar una opción", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     case 1:
-                        if (!VistaController.estadoCompeticion()) {
+                        if (VistaController.estadoCompeticion()) {
                             VistaController.ventanaCrearJornada(VentanaGestionJornada.this, nombre);
                         } else {
                             JOptionPane.showMessageDialog(contentPane, "No se pueden crear enfrentamientos si la competición está abierta");
+                        }
+                        break;
+                    case 2:
+                        if (!VistaController.VentanaMostrarJornadas()){
+                            JOptionPane.showMessageDialog(contentPane,"No hay equipos para mostrar", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         break;
                 }

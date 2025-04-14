@@ -84,6 +84,10 @@ public class VistaController {
         return ModeloController.listaEquipos();
     }
 
+    public static List<String> listaJornadas(){
+        return ModeloController.listaJornadas();
+    }
+
 
     public void mostrarInicio() {
         InicioSesion inicioSesion = new InicioSesion();
@@ -161,6 +165,14 @@ public class VistaController {
         vcj.setVisible(true);
     }
 
+    public static boolean VentanaMostrarJornadas() {
+        VentanaMostrarJornadas vmj = new VentanaMostrarJornadas();
+        List<String> listaJornadas = ModeloController.listaJornadas();
+        vmj.setVisible(!listaJornadas.isEmpty());
+        return !listaJornadas.isEmpty();
+    }
+
+
     public static boolean crearJornada(LocalDate fechaInicio) {
         return ModeloController.crearJornada(fechaInicio);
     }
@@ -198,6 +210,10 @@ public class VistaController {
 
     public static List<String[]> obtenerEquiposConFechas(){
         return ModeloController.obtenerEquiposConFechas();
+    }
+
+    public static List<String[]> obtenerJornadas(){
+        return ModeloController.obtenerJornadas();
     }
 
     public static boolean ventanaConfirmacion(String title){

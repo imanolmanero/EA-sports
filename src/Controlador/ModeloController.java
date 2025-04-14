@@ -1,7 +1,5 @@
 package Controlador;
 
-import Modelo.JornadaDAO;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -50,6 +48,7 @@ public class ModeloController {
         return EquipoController.obtenerEquiposConFechas();
     }
 
+
     public static boolean modificarEquipo(String nuevoNombre, LocalDate nuevaFecha, String nombre){
         return EquipoController.modificarEquipo(nuevoNombre,nuevaFecha,nombre);
     }
@@ -80,7 +79,9 @@ public class ModeloController {
     public static boolean crearJornada(LocalDate fechaInicio) {
         return JornadaController.crearJornada(fechaInicio);
     }
-
+    public static List<String[]> obtenerJornadas(){
+        return JornadaController.obtenerJornadas();
+    }
     public static boolean existeJornada (String numJornada){
         return JornadaController.existeJornada(numJornada);
     }
@@ -91,5 +92,9 @@ public class ModeloController {
 
     public static List<String> obtenerRoles(String equipoSeleccionado) {
         return JugadorController.obtenerRoles(equipoSeleccionado);
+    }
+
+    public static List<String> listaJornadas(){
+        return JornadaController.listaJornadas();
     }
 }

@@ -2,25 +2,23 @@ package Vista;
 
 import Controlador.VistaController;
 import Excepciones.FechaInvalidaException;
-import Modelo.Jornada;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 public class VentanaCrearJornada extends JFrame {
     private JPanel contentPane;
     private JButton buttonAceptar;
-    private JButton buttonCancelar;
+    private JButton buttonVolver;
     private JTextField tfFechaInicio;
 
     public VentanaCrearJornada(JFrame ventana) {
         setContentPane(contentPane);
         setTitle("Crear Jornada");
-        setSize(400, 250);
+        setSize(400, 200);
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonAceptar);
 
@@ -30,7 +28,7 @@ public class VentanaCrearJornada extends JFrame {
             }
         });
 
-        buttonCancelar.addActionListener(new ActionListener() {
+        buttonVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
@@ -72,6 +70,7 @@ public class VentanaCrearJornada extends JFrame {
 
             // Crear la jornada con la fecha de inicio y la fecha de fin generada
             boolean jornadaCreada = VistaController.crearJornada(fechaInicio);
+            tfFechaInicio.setText(""); // Vaciar el campo de texto
 
             if (jornadaCreada) {
                 JOptionPane.showMessageDialog(this, "Jornada creada correctamente.");

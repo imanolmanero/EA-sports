@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JornadaDAO {
 
@@ -37,16 +39,14 @@ public class JornadaDAO {
         return encontrado;
     }
 
-
-
     public static boolean existeJornada(String numJornada) {
         boolean existe = false;
         try {
             BaseDatos.abrirConexion();
             Connection con = BaseDatos.getCon();
 
-            String consulta = "SELECT COUNT(*) FROM jornadas WHERE numJornada = ?";
-            PreparedStatement ps = con.prepareStatement(consulta);
+            String plantilla = "SELECT COUNT(*) FROM jornadas WHERE numJornada = ?";
+            PreparedStatement ps = con.prepareStatement(plantilla);
             ps.setString(1, numJornada);
 
             ResultSet rs = ps.executeQuery();
@@ -57,6 +57,52 @@ public class JornadaDAO {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos");
         }
         return existe;
+    }
+
+    public static List<String[]> obtenerJornadas() {
+        List<String[]> jornadas = new ArrayList<>();
+
+        try{
+            BaseDatos.abrirConexion();
+            Connection con = BaseDatos.getCon();
+
+            String plantilla = "SELECT fechaInicio,fechaFin FROM jornadas";
+            PreparedStatement ps = con.prepareStatement(plantilla);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String fechainicio = rs.getDate("fechainicio").toString();
+                String fechafin = rs.getDate("fechafin").toString();
+                jornadas.add(new String[]{fechainicio, fechafin});
+
+            }
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos");
+        }
+        return jornadas;
+    }
+
+    public static List<String> listaJornadas() {
+        List<String> jornadas = new ArrayList<>();
+
+        try{
+           BaseDatos.abrirConexion();
+           Connection con = BaseDatos.getCon();
+
+           String plantilla = "SELECT numJornada FROM jornadas";
+           PreparedStatement ps = con.prepareStatement(plantilla);
+
+           ResultSet rs = ps.executeQuery();
+           while (rs.next()) {
+               jornadas.add(rs.getString(1));
+           }
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos");
+        }
+        return jornadas;
     }
 
 }
